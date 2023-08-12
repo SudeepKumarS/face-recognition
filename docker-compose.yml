@@ -1,0 +1,31 @@
+version: '3'
+services:
+  microservice1:
+    build:
+      context: ./microservice1
+    ports:
+      - "8000:8000"
+    networks:
+      - facerecognitionnetwork
+
+  microservice2:
+    build:
+      context: ./microservice2
+    ports:
+      - "8080:8080"
+    networks:
+      - facerecognitionnetwork
+
+  mongodb:
+    image: mongo
+    container_name: local-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - facerecognitionnetwork
+    volumes:
+      - ./data:/data/db
+
+networks:
+  facerecognitionnetwork:
+    driver: bridge
